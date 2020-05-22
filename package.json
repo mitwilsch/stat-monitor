@@ -7,7 +7,9 @@
     "build": "webpack --mode production",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
     "server": "nodemon src/server/index.js",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "dockerBuild": "docker build -t mitwilsch/stat-monitor:latest .",
+    "start": "docker-compose up -d"
   },
   "dependencies": {
     "@material-ui/core": "^4.9.1",

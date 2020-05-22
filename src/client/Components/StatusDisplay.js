@@ -19,8 +19,9 @@ const StatusDisplay = props => {
     upTime,
     systemTime,
     cpuIdle,
-    memAvail,
+    memFree,
     memTotal,
+    memUsed,
     diskAvailSpace,
     diskUsedSpace,
     diskTotalSpace,
@@ -52,12 +53,12 @@ const StatusDisplay = props => {
       <Typography variant="h5" gutterBottom>
         Used Memory
       </Typography>
-      <Typography variant="h3">{formatBytes(memTotal - memAvail)}</Typography>
+      <Typography variant="h3">{formatBytes(memUsed)}</Typography>
 
       <Typography variant="h5" gutterBottom>
         free Memory
       </Typography>
-      <Typography variant="h3">{formatBytes(memAvail)}</Typography>
+      <Typography variant="h3">{formatBytes(memFree)}</Typography>
 
       <Typography variant="h5" gutterBottom>
         Disk Usage

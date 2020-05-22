@@ -17,38 +17,20 @@ const runTop = async () => {
   // this regex should be a lot better
   // ideally, split only data into array and map variables in order
   // should also make a model for better API
-  const re = /\s*(?: |$)\s*/;
-  const data = res.split(re);
+  const data = res.split(/[^0-9\.]+/g).filter(v => v);
 
   const result = {
-    systemTime: data[2],
-    upTime: data[4].split(','),
-    users: data[5],
-    loadAvg1Min: data[9],
-    loadAvg5Min: data[10],
-    loadAvg15Min: data[11].split('\n')[0],
-    totalTasks: data[12],
-    runningTasks: data[14],
-    sleepingTasks: data[16],
-    stoppedTasks: data[18],
-    zombieTasks: data[20],
-    cpuUserSpace: data[22],
-    cpuSystem: data[24],
-    cpuNice: data[26],
-    cpuIdle: data[28],
-    cpuWait: data[30],
-    cpuHi: data[32],
-    cpuSi: data[34],
-    cpuSt: data[36],
-    memTotal: data[40] * 1024,
-    memFree: data[42] * 1024,
-    memUsed: data[44] * 1024,
-    memBuffCache: data[46] * 1024,
-    memSwapTotal: data[49] * 1024,
-    memSwapFree: data[51] * 1024,
-    memSwapUsed: data[53] * 1024,
-    memAvail: data[55] * 1024,
+    memUsed: data[0] * 1024,
+    memFree: data[1] * 1024,
+    cpuUserSpace: data[5],
+    cpuIdle: data[8],
+    loadAvg1Min: data[12],
+    loadAvg5Min: data[13],
+    loadAvg15Min: data[14],
+    //memTotal: memUsed + memFree,
   };
+  result.memTotal = result.memUsed + result.memFree;
+
   return result;
 };
 
@@ -74,11 +56,26 @@ const runDf = async () => {
   return result;
 };
 
+const runUptime = async () => {
+  const res = await execShellCmd('uptime');
+
+  const data = res.split(/[^0-9\:]+/g).filter(v => v);
+  const result = {
+    systemTime: data[0],
+    upTime: data[1],
+  };
+
+  return result;
+};
+
 const getStats = async () => {
   const top = await runTop();
   const df = await runDf();
+  const uptime = await runUptime();
+
   // return object
-  const stats = { ...top, ...df };
+
+  const stats = { ...top, ...df, ...uptime };
   return stats;
 };
 

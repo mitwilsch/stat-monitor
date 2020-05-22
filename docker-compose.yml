@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  statMonitor:
+    image: mitwilsch/stat-monitor:latest
+    container_name: statMonitor
+    volumes:
+      - '.:/app:rw'
+
+    ports:
+      - 8080:8080
+      - 3000:3000
