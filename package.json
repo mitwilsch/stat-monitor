@@ -9,7 +9,7 @@
     "server": "nodemon src/server/index.js",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "dockerBuild": "docker build -t mitwilsch/stat-monitor:latest .",
-    "prodClient": "http-server dist -p 80",
+    "prodClient": "npx http-server dist -p 80",
     "prodServer": "node src/server/index.js",
     "start": "npx concurrently \"npm run prodClient\" \"npm run prodServer\""
   },
