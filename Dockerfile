@@ -2,8 +2,8 @@ FROM node:13.12.0-alpine
 
 WORKDIR /app
 
-#COPY package.json ./
+COPY package.json ./
 
-#COPY . ./
+COPY . ./
 
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "start"]

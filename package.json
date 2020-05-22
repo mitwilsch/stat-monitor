@@ -9,7 +9,9 @@
     "server": "nodemon src/server/index.js",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "dockerBuild": "docker build -t mitwilsch/stat-monitor:latest .",
-    "start": "docker-compose up -d"
+    "prodClient": "http-server dist -p 80",
+    "prodServer": "node src/server/index.js",
+    "start": "concurrently \"npm run prodClient\" \"npm run prodServer\""
   },
   "dependencies": {
     "@material-ui/core": "^4.9.1",
