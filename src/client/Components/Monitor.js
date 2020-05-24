@@ -77,4 +77,17 @@ const StatusDisplay = props => {
   );
 };
 
-export default StatusDisplay;
+const Monitor = props => {
+  const { status } = props;
+  return (
+    <div>
+      {Object.keys(status).length > 0 ? (
+        <StatusDisplay status={status} />
+      ) : (
+        <div />
+      )}
+    </div>
+  );
+};
+
+export default Monitor;
