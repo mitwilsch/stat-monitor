@@ -1,4 +1,5 @@
 const { exec, spawn } = require('child_process');
+const os = require('os');
 
 const execShellCmd = cmd => {
   return new Promise((resolve, reject) => {
@@ -6,32 +7,9 @@ const execShellCmd = cmd => {
       if (error) {
         console.warn(error);
       }
-      resolve(stdout ? stdout : stderr);
+      resolve(stdout || stderr);
     });
   });
-};
-
-const runTop = async () => {
-  const res = await execShellCmd('top -n 1 -b ');
-
-  // this regex should be a lot better
-  // ideally, split only data into array and map variables in order
-  // should also make a model for better API
-  const data = res.split(/[^0-9\.]+/g).filter(v => v);
-
-  const result = {
-    memUsed: data[0] * 1024,
-    memFree: data[1] * 1024,
-    cpuUserSpace: data[5],
-    cpuIdle: data[8],
-    loadAvg1Min: data[12],
-    loadAvg5Min: data[13],
-    loadAvg15Min: data[14],
-    //memTotal: memUsed + memFree,
-  };
-  result.memTotal = result.memUsed + result.memFree;
-
-  return result;
 };
 
 const runDf = async () => {
@@ -69,13 +47,28 @@ const runUptime = async () => {
 };
 
 const getStats = async () => {
-  const top = await runTop();
   const df = await runDf();
   const uptime = await runUptime();
 
+  const newUptime = await os.uptime();
+
+  // generate uptime in date format
+  const currentUptime = new Date(null);
+  currentUptime.setSeconds(newUptime);
+  const formatUptime = currentUptime.toISOString().substr(11, 8);
   // return object
 
-  const stats = { ...top, ...df, ...uptime };
+  // const stats = { ...top, ...df, ...uptime };
+
+  const stats = {
+    upTime: formatUptime,
+    systemTime: uptime.systemTime,
+    cpus: os.cpus(),
+    memFree: os.freemem(),
+    memTotal: os.totalmem(),
+    ...df,
+  };
+
   return stats;
 };
 

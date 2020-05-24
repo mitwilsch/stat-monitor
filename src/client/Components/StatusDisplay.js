@@ -10,18 +10,29 @@ const formatBytes = (bytes, decimals = 2) => {
 
   const i = Math.floor(Math.log(bytes) / Math.log(k));
 
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
 };
 
+const Item = props => {
+  const { name, data } = props;
+  return (
+    <div>
+      <Typography variant="h5" gutterBottom>
+        {name}
+      </Typography>
+      <Typography variant="h3">{data}</Typography>
+    </div>
+  );
+};
 const StatusDisplay = props => {
   const { status } = props;
   const {
     upTime,
     systemTime,
-    cpuIdle,
+    cpus,
     memFree,
     memTotal,
-    memUsed,
+
     diskAvailSpace,
     diskUsedSpace,
     diskTotalSpace,
@@ -30,35 +41,14 @@ const StatusDisplay = props => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <Typography variant="h5" gutterBottom>
-        System Time
-      </Typography>
-      <Typography variant="h3">{systemTime}</Typography>
+      <Item name="System Time" data={systemTime} />
 
-      <Typography variant="h5" gutterBottom>
-        Uptime
-      </Typography>
-      <Typography variant="h3">{upTime}</Typography>
+      <Item name="Uptime" data={upTime} />
+      <Item name="Total Memory" data={formatBytes(memTotal)} />
+      <Item name="Used Memory" data={formatBytes(memTotal - memFree)} />
+      <Item name="Free Memory" data={formatBytes(memFree)} />
 
-      <Typography variant="h5" gutterBottom>
-        Cpu Used
-      </Typography>
-      <Typography variant="h3">{(100 - cpuIdle).toFixed(2)}%</Typography>
-
-      <Typography variant="h5" gutterBottom>
-        Total Memory
-      </Typography>
-      <Typography variant="h3">{formatBytes(memTotal)}</Typography>
-
-      <Typography variant="h5" gutterBottom>
-        Used Memory
-      </Typography>
-      <Typography variant="h3">{formatBytes(memUsed)}</Typography>
-
-      <Typography variant="h5" gutterBottom>
-        free Memory
-      </Typography>
-      <Typography variant="h3">{formatBytes(memFree)}</Typography>
+      {console.log(cpus)}
 
       <Typography variant="h5" gutterBottom>
         Disk Usage

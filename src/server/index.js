@@ -1,7 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const os = require('os');
 const Router = require('./Router');
 const Utils = require('./Utils');
+
+console.log(os.freemem());
 
 const app = express();
 const port = process.env.PORT || 8080;
