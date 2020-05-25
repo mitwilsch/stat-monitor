@@ -11,12 +11,13 @@
     "dockerBuild": "docker build -t mitwilsch/stat-monitor:latest .",
     "prodClient": "npx http-server dist -p 80",
     "prodServer": "node src/server/index.js",
-    "start": "npx concurrently \"npm run prodClient\" \"npm run prodServer\""
+    "start": "concurrently \"npm run prodClient\" \"npm run prodServer\""
   },
   "dependencies": {
     "body-parser": "^1.19.0",
     "concurrently": "^5.2.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "typeface-roboto": "0.0.75"
   },
   "devDependencies": {
     "nodemon": "^2.0.4",
@@ -26,7 +27,6 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
-    "typeface-roboto": "0.0.75",
     "eslint": "^7.0.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-config-prettier": "^6.11.0",
