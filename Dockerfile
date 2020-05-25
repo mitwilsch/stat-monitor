@@ -6,6 +6,6 @@ COPY package.json ./
 
 COPY . ./
 
-RUN npm install --production
+#RUN npm install --production
 
 CMD ["npm", "run", "prodServer"]
