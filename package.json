@@ -23,7 +23,6 @@
     "nodemon": "^2.0.4",
     "mongodb": "^3.5.7",
     "mongoose": "^5.9.15",
-    "nodemon": "^2.0.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
