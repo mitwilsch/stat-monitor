@@ -8,4 +8,4 @@ COPY . ./
 
 #RUN npm install --production
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "prodServer"]
